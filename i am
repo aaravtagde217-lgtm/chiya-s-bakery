@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chiya's Bakehouse | Sweet Moments Start Here</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- Color Variables & Reset --- */
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F3E5AB;
+            --white: #FFFFFF;
+            --off-white: #FAFAFA;
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--white);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        /* --- Animations --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            background-color: var(--white);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .tagline-nav {
+            font-size: 14px;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(243, 229, 171, 0.4)), url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 54px;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            max-width: 800px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-light);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        /* WhatsApp CTA Button */
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--white);
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            border: 2px solid var(--gold);
+        }
+
+        .cta-btn:hover {
+            background-color: var(--white);
+            color: var(--gold);
+            animation: none;
+        }
+
+        /* --- Sections Shared Styles --- */
+        section {
+            padding: 80px 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: var(--gold);
+            margin-bottom: 40px;
+        }
+
+        /* --- About Section --- */
+        .about-bg {
+            background-color: var(--off-white);
+        }
+
+        .about-container {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 17px;
+        }
+
+        .why-choose-us {
+            flex: 1;
+            background: var(--white);
+            padding: 30px;
+            border-left: 5px solid var(--gold);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .why-choose-us h3 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .why-choose-us ul {
+            list-style: none;
+        }
+
+        .why-choose-us ul li {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .why-choose-us ul li i {
+            color: var(--gold);
+            margin-right: 10px;
+        }
+
+        /* --- Services Section --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border: 1px solid #eee;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 4px;
+            background: var(--gold);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .service-card p {
+            color: var(--text-light);
+        }
+
+        /* --- Testimonials Section --- */
+        .testimonials {
+            background-color: var(--off-white);
+            text-align: center;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .test-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            font-style: italic;
+        }
+
+        .stars {
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        /* --- FAQ Section --- */
+        .faq-item {
+            background: var(--white);
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            border-left: 4px solid var(--gold);
+        }
+
+        .faq-item h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* --- Footer Section --- */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--white);
+            padding: 60px 10% 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .footer-col p {
+            margin-bottom: 10px;
+            color: #ddd;
+        }
+
+        .footer-col i {
+            color: var(--gold);
+            margin-right: 10px;
+        }
+
+        .rating-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .rating-badge span {
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .about-container { flex-direction: column; }
+            header { padding: 20px; flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">Chiya's Bakehouse</a>
+        <div class="tagline-nav">Sweet Moments Start Here | Cake Shop & Café</div>
+    </header>
+
+    <section class="hero">
+        <h1 class="fade-in">Custom Cakes That Make Every Celebration Memorable</h1>
+        <p class="fade-in">From birthdays to anniversaries, Chiya's Bakehouse creates freshly baked custom cakes designed exactly the way you imagine.</p>
+        <a href="https://api.whatsapp.com/send?phone=917887756096&text=Hello%20Chiyas%20Bakehouse!%20I%20would%20like%20to%20order%20a%20cake." class="cta-btn fade-in" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i> Order Now
+        </a>
+    </section>
+
+    <section class="about-bg" id="about">
+        <h2 class="section-title fade-in">About Us</h2>
+        <div class="about-container">
+            <div class="about-text fade-in">
+                <p><strong>Chiya's Bakehouse</strong> is a highly rated Nagpur-based bakery specializing in custom cakes, pastries, and celebration desserts. Our goal is simple: create delicious and beautifully designed cakes that make every special occasion unforgettable.</p>
+                <p>Every cake is prepared with premium quality ingredients, meticulous attention to detail, and a deep passion for baking. We pride ourselves on beautiful cake decorations and personalized designs that fit your exact vision.</p>
+            </div>
+            <div class="why-choose-us fade-in">
+                <h3>Why Choose Us</h3>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Freshly Baked Daily</li>
+                    <li><i class="fa-solid fa-check"></i> Custom Cake Designs</li>
+                    <li><i class="fa-solid fa-check"></i> Premium Ingredients</li>
+                    <li><i class="fa-solid fa-check"></i> Affordable Pricing</li>
+                    <li><i class="fa-solid fa-check"></i> Fast Order Processing</li>
+                    <li><i class="fa-solid fa-check"></i> Trusted by Local Customers</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <h2 class="section-title fade-in">Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <h3>Custom Cakes</h3>
+                <p>Expertly crafted birthday cakes, anniversary cakes, wedding cakes, and uniquely themed cakes designed specifically for you.</p>
+            </div>
+            <div class="service-card fade-in">
+                <h3>Pastries</h3>
+                <p>Indulge in our rich chocolate pastries, decadent truffle pastries, and delicate fresh cream pastries.</p>
+            </div>
+            <div class="service-card fade-in">
+                <h3>Celebration Cakes</h3>
+                <p>Beautifully decorated, delicious centerpiece cakes guaranteed to elevate any gathering or celebration.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2 class="section-title fade-in">What Our Customers Say</h2>
+        <div class="test-grid">
+            <div class="test-card fade-in">
+                <div class="stars">★★★★★</div>
+                <p>"Beautiful cake design and amazing taste."</p>
+            </div>
+            <div class="test-card fade-in">
+                <div class="stars">★★★★★</div>
+                <p>"One of the best custom cake shops in Nagpur."</p>
+            </div>
+            <div class="test-card fade-in">
+                <div class="stars">★★★★★</div>
+                <p>"Fresh cake and excellent service."</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <h2 class="section-title fade-in">Frequently Asked Questions</h2>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="faq-item fade-in">
+                <h4>Do you make custom cakes?</h4>
+                <p>Yes, we create personalized cakes based on your theme and requirements.</p>
+            </div>
+            <div class="faq-item fade-in">
+                <h4>How early should I place an order?</h4>
+                <p>Ideally 1–3 days in advance for custom designs.</p>
+            </div>
+            <div class="faq-item fade-in">
+                <h4>Do you offer eggless cakes?</h4>
+                <p>Contact us for available options!</p>
+            </div>
+            <div class="faq-item fade-in">
+                <h4>Can I order for birthdays and anniversaries?</h4>
+                <p>Yes, we create beautiful cakes for all types of celebrations.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>Chiya's Bakehouse</h3>
+                <p>Sweet Moments Start Here.</p>
+                <div class="rating-badge">
+                    <span>⭐ 5.0/5</span> based on 100+ Reviews on Google
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <p><i class="fa-solid fa-phone"></i> +91 7887756096</p>
+                <p><i class="fa-solid fa-clock"></i> Hours: 10:00 AM – 9:00 PM</p>
+            </div>
+            <div class="footer-col">
+                <h3>Location</h3>
+                <p><i class="fa-solid fa-location-dot"></i> Shop No. 3, Plot No. 92, Near Nilkamal Homes, Sahayog Nagar, Jagrut Nagar, Tathagat Chowk, Nagpur, Maharashtra 440026</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2026 Chiya's Bakehouse. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
+
